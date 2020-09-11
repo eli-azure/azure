@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sleep 60
 apt update
 
 # install Apache2
