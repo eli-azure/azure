@@ -9,4 +9,4 @@ apt-get -y install apache2
 echo \<center\>\<h1\>Hello From Demo App\</h1\>\<br/\>\</center\> > /var/www/html/index.html
 
 # restart Apache
-apachectl restart
+systemctl restart apache2
