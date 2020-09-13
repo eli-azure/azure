@@ -10,21 +10,24 @@ ipDown=$myIpPre.$ipDown
 
 limit=5
 i=0
-while true
-do
-	ping -c1 $ipUp
-	if [[ $? == 0 ]]; then
-		st2=$ipUp
+st2=
+
+while true; do
+	ping -c1 $ipDown
+	if [ $? -eq 0 ]; then
+		st2=$ipDown
 		break
 	fi
-	ping -c1 $ipDown
-        if [[ $? == 0 ]]; then
-                st2=$ipDown
+	ping -c1 $ipUp
+        if [ $? -eq 0 ]; then
+                st2=$ipUp
                 break
         fi
-	((i++))
-	[[ $i == $limit ]]&& break; then
+	i=`expr $i + 1`
+	[ $i -eq $limit ] && break
 done
+
+[ -z $st2 ] && st2='<ENTER HIRE THE APACHE IP>'
 
 apt update
 apt install -y nginx
@@ -45,3 +48,4 @@ http {
 }
 EOF
 #systemctl restart nginx
+
